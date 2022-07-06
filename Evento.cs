@@ -17,6 +17,8 @@ namespace csharp_gestore_eventi
             set {
                 try{
                     titolo = value;
+                    if (titolo == null)
+                        throw new Exception();
                 }catch(Exception e){
                     Console.WriteLine("è obbligatorio inserire il titolo!");
                 }
@@ -28,9 +30,12 @@ namespace csharp_gestore_eventi
             set {
                 try{
                     data = value;
+
+                    if (DateTime.Now.CompareTo(this.data) > 0)
+                        throw new Exception();
                 }
                 catch (Exception e){
-                    Console.WriteLine("Data inserita già trascorsa!");
+                    Console.WriteLine("Non puoi inserire una data già trascorsa!");
                 }
             }
         }
@@ -40,9 +45,11 @@ namespace csharp_gestore_eventi
                 try{
                     capienzaMassima = value;
 
+                    if (capienzaMassima <= 0)
+                        throw new Exception();
                 }
                 catch (Exception e){
-                    Console.WriteLine("Non puoi inserire un numero negativo!");
+                    Console.WriteLine("La capienza deve essere un numero positivo!");
                 }
             }
         }
@@ -58,10 +65,11 @@ namespace csharp_gestore_eventi
         public void PrenotaPosti(int numeroPosti){
             
             try{
-                if (this.capienzaMassima == 0 || DateTime.Now.CompareTo(this.data) > 0 || this.capienzaMassima - this.postiPrenotati <= 0){
+                if (this.capienzaMassima == 0 || DateTime.Now.CompareTo(this.data) > 0 || this.capienzaMassima - this.postiPrenotati <= 0 || this.CapienzaMassima < numeroPosti){
                     throw new Exception();
                 }
                 this.postiPrenotati += numeroPosti;
+                Console.WriteLine("Posti prenotati, hai riservato " + numeroPosti + " posti per te");
 
             }catch(Exception e){
                 Console.WriteLine("Errore nella prenotazione! Assicurati di aver scritto i dati correttamente");
@@ -74,6 +82,7 @@ namespace csharp_gestore_eventi
                     throw new Exception();
                 }
                 this.postiPrenotati -= postiDaRimuovere;
+                Console.WriteLine("Disdetta avvenuta con successo!");
 
             }
             catch (Exception e){
