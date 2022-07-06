@@ -76,7 +76,7 @@ namespace csharp_gestore_eventi
             }
         }
 
-        public void DisdiciPosti(int postiDaRimuovere){
+        public int DisdiciPosti(int postiDaRimuovere){
             try{
                 if (DateTime.Now.CompareTo(this.data) > 0 || this.postiPrenotati < postiDaRimuovere){
                     throw new Exception();
@@ -84,15 +84,18 @@ namespace csharp_gestore_eventi
                 this.postiPrenotati -= postiDaRimuovere;
                 Console.WriteLine("Disdetta avvenuta con successo!");
 
+                return this.postiPrenotati;
+
             }
             catch (Exception e){
                 Console.WriteLine("Errore nella disdetta! Assicurati di aver scritto i dati correttamente");
+                return 0;
             }
 
         }
 
         public override string ToString(){
-            return this.data.ToString("dd/mm/yyyy");
+            return this.data.ToString("dd/MM/yyyy") + "- " + this.titolo;
         }
     }
 }
