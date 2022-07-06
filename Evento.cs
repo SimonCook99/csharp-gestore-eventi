@@ -17,7 +17,7 @@ namespace csharp_gestore_eventi
                 try{
 
                 }catch(Exception e){
-                    Console.WriteLine("è obbligatorio inserire il titolo");
+                    Console.WriteLine("è obbligatorio inserire il titolo!");
                 }
             } 
         }
